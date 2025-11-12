@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Framework - Inspirado en Squarespace</title>
+
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            
+        }
+
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideDown 1s ease forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00e0ff;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        header h1::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0%;
+            height: 2px;
+            background: #00e0ff;
+            transition: width 0.5s;
+        }
+
+        header h1:hover::after {
+            width: 100%;
+        }
+
+        header nav a {
+            color: #fff;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #00e0ff;
+        }
+
+        
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeUp 1.5s ease forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero img {
+            width: 200px;
+            margin-bottom: 25px;
+            filter: brightness(0) invert(1);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00e0ff;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ddd;
+            margin-bottom: 40px;
+        }
+
+        .hero button {
+            background: linear-gradient(90deg, #00e0ff, #00ffa3);
+            color: #111;
+            padding: 15px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .hero button:hover::before {
+            left: 100%;
+        }
+
+        .hero button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 224, 255, 0.7);
+        }
+
+        
+        section {
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        section h2 {
+            color: #00e0ff;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            max-width: 850px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        
+        .empresas {
+            background: #0b1419;
+            padding: 80px 60px;
+        }
+
+        .empresas h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #00e0ff;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            justify-items: center;
+        }
+
+        .company-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .company-card:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(145deg, rgba(0, 224, 255, 0.2), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 0 25px rgba(0, 224, 255, 0.3);
+        }
+
+        .company-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .company-card h3 {
+            font-size: 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
+       
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #0a0f13;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Django Framework</h1>
+        <nav>
+            <a href="#que-es">¿Qué es?</a>
+            <a href="#funcion">Función</a>
+            <a href="#estructura">Estructura</a>
+            <a href="#ventajas">Ventajas</a>
+            <a href="#desventajas">Desventajas</a>
+            <a href="#empresas">Empresas</a>
+        </nav>
+    </header>
+
+    <section class="hero fade-in">
+        <h2>Django Framework</h2>
+        <p>Django es un framework web de código abierto escrito en Python que simplifica la creación rápida de sitios
+            web complejos al proporcionar componentes reutilizables para tareas comunes como la autenticación, bases de
+            datos y administración.</p>
+        <button onclick="window.location.href='#que-es'">Comenzar</button>
+    </section>
+
+    <section id="que-es" class="fade-in">
+        <h2>¿Qué es Django?</h2>
+        <p>Django es un framework web de código abierto para Python que permite desarrollar aplicaciones web de forma
+            rápida y eficiente. Simplifica tareas como la autenticación de usuarios, la gestión de bases de datos y la
+            creación de formularios.</p>
+    </section>
+
+    <section id="funcion" class="fade-in">
+        <h2>Función de Django</h2>
+        <p>La función de Django es facilitar la creación de aplicaciones web rápidas y seguras, ofreciendo herramientas
+            reutilizables y protecciones integradas contra vulnerabilidades comunes, permitiendo a los desarrolladores
+            centrarse en la lógica de su aplicación.</p>
+    </section>
+
+    <section id="estructura" class="fade-in">
+        <h2>Estructura Django</h2>
+        <p>La estructura de Django sigue el patrón Modelo-Vista-Plantilla (MVT). Cada aplicación tiene sus modelos
+            (datos), vistas (lógica) y plantillas (interfaz de usuario), lo que facilita la organización del proyecto.
+        </p>
+    </section>
+
+    <section id="ventajas" class="fade-in">
+        <h2>Ventajas</h2>
+        <p>• Desarrollo rápido<br>
+            • Seguridad sólida<br>
+            • Funcionalidades integradas<br>
+            • Código reutilizable<br>
+            • Amplia documentación y comunidad</p>
+    </section>
+
+    <section id="desventajas" class="fade-in">
+        <h2>Desventajas</h2>
+        <p>• Puede ser excesivo para proyectos pequeños<br>
+            • Curva de aprendizaje pronunciada<br>
+            • Estructura monolítica menos flexible</p>
+    </section>
+
+    <section id="empresas" class="empresas fade-in">
+        <h2>Empresas que usan Django</h2>
+        <div class="company-grid">
+            <div class="company-card fade-in">
+                <img src="https://1000marcas.net/wp-content/uploads/2019/11/Instagram-Logo.png" alt="Instagram">
+                <h3>Instagram</h3>
+            </div>
+            <div class="company-card fade-in">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Spotify_App_Logo.svg" alt="Spotify">
+                <h3>Spotify</h3>
+            </div>
+            <div class="company-card fade-in">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" alt="Pinterest">
+                <h3>Pinterest</h3>
+            </div>
+            <div class="company-card fade-in">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/nasa.svg" alt="NASA">
+                <h3>NASA</h3>
+            </div>
+            <div class="company-card fade-in">
+                <img src="https://1000marcas.net/wp-content/uploads/2020/03/logo-National-Geographic-640x360.png"
+                    alt="National Geographic">
+                <h3>National Geographic</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Proyecto Django - Yeimy Tatiana Bayona Pérez.</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
