@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'styletemplate.css' %}">
+  <title>Panel de Consultas Django</title>
+</head>
+
+<body>
+
+
+  <header class="banner">
+    <h1>Bienvenido al Panel de Consultas Django</h1>
+    <p>Demostración completa de variables, filtros, tags y consultas ORM</p>
+  </header>
+
+  <main class="contenedor">
+
+
+    <section class="hero-card">
+      <img src="{% static 'members/tenis.png' %}" alt="Tennis Image" class="hero-img">
+    </section>
+
+
+    <section class="tarjeta">
+      <h2>Variables desde una Lista</h2>
+      <div class="listado">
+        {% for x in fruits %}
+        <p>{{ x }}</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>Crear Variables en el Template</h2>
+      {% with firstname="Tobias" %}
+      <p class="mensaje">Hola {{ firstname }}, ¿cómo estás?</p>
+      {% endwith %}
+    </section>
+
+    <section class="tarjeta">
+      <h2>Variables desde el Modelo <strong>Members</strong></h2>
+      <ul>
+        {% for x in miembros %}
+        <li>{{ x.firstname }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+
+
+    <section class="tarjeta">
+      <h2>Django Tags</h2>
+      <h3>Lorem Ipsum</h3>
+      {% lorem 5 p %}
+
+      {% csrf_token %}
+
+      <h3>Fecha Actual</h3>
+      <p>{% now "Y-m-d" %}</p>
+    </section>
+
+
+    <section class="tarjeta">
+      <h2>Condicional IF</h2>
+      {% for miembro in miembros %}
+      {% if miembro.firstname == "Felipe" %}
+      <p class="alerta">Hola Admin {{ miembro.firstname }}</p>
+      {% endif %}
+      {% endfor %}
+    </section>
+
+
+    <section class="tarjeta">
+      <h2>Black Friday Include</h2>
+      {% include 'black_friday.html' %}
+    </section>
+
+    <section class="tarjeta">
+      <div class="query-section-header">
+        <h2>Query Sets</h2>
+      </div>
+      <p style="color: var(--text-light); margin-bottom: 30px; font-size: 1.05rem;">
+        Demostración completa de operaciones de consulta en Django ORM con resultados organizados
+      </p>
+
+      <h3>📊 Columnas por Firstname</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in column_firstname %}
+          <tr>
+            <td>{{ x }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <img src="{% static 'members/deportista.png' %}" class="img-small">
+
+      <h3>🎯 Return Specific Columns</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in records_name %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>🔗 Filter con AND (Operador múltiple)</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in records_AND_name_id %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>⚡ Filter con OR (Operador alternativo)</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in record_OR_name %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <img src="{% static 'members/image.png' %}" class="img-small">
+
+      <h3>🔤 Filter Like - Comienza con (Startswith)</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in record_like_start %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>🔤 Filter Like - Termina con (Endswith)</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in record_like_end %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>🔍 Filter Contains - Contiene texto</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in record_like_contains %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>⬆ Order By ASC - Ordenamiento Ascendente</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in order_by_asc %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h3>⬇ Order By DESC - Ordenamiento Descendente</h3>
+      <table class="query-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in order_by_desc %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.phone }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+    <div class="footer-columns">
+
+      <div>
+        <h3>Documentación</h3>
+        <ul>
+          <li>Django Templates</li>
+          <li>Django ORM</li>
+          <li>Static Files</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Proyecto Django</h3>
+        <ul>
+          <li>Consultas</li>
+          <li>Variables</li>
+          <li>Filtros</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li>Tatiana Bayona</li>
+          <li>Tatianabayona2017@gmail.com</li>
+          <li>@TattysB</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 Proyecto Django – Todos los derechos reservados
+    </div>
+  </footer>
+
+</body>
+
+</html>
